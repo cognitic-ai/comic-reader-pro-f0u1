@@ -34,13 +34,7 @@ const AppleStackPreset: NativeStackNavigationOptions =
 export default function LibraryLayout() {
   return (
     <Stack screenOptions={AppleStackPreset}>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "Library",
-          headerLargeTitle: true,
-        }}
-      />
+      <Stack.Screen name="index" />
     </Stack>
   );
 }

@@ -1,7 +1,7 @@
-import { ScrollView, View, Text, useWindowDimensions, Pressable } from "react-native";
+import { ScrollView, View, Text, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import * as AC from "@bacons/apple-colors";
 import { getReadingComics } from "@/data/comics";
@@ -137,71 +137,73 @@ export default function ReadingRoute() {
   const readingComics = getReadingComics();
 
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      style={{ flex: 1 }}
-      contentContainerStyle={{
-        padding: 16,
-        paddingBottom: insets.bottom + 16,
-      }}
-    >
-      {readingComics.length === 0 ? (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            paddingVertical: 60,
-          }}
-        >
-          <SymbolView
-            name="book.closed"
-            size={48}
-            tintColor={AC.tertiaryLabel as unknown as string}
-          />
-          <Text
+    <>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={{ flex: 1 }}
+        contentContainerStyle={{
+          padding: 16,
+          paddingBottom: insets.bottom + 80,
+        }}
+      >
+        {readingComics.length === 0 ? (
+          <View
             style={{
-              fontSize: 17,
-              fontWeight: "600",
-              color: AC.label,
-              marginTop: 16,
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingVertical: 60,
             }}
           >
-            No Comics in Progress
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              color: AC.secondaryLabel,
-              textAlign: "center",
-              marginTop: 8,
-              maxWidth: 280,
-            }}
-          >
-            Start reading a comic from your library to see it here
-          </Text>
-        </View>
-      ) : (
-        <View>
-          <Text
-            style={{
-              fontSize: 13,
-              fontWeight: "600",
-              color: AC.secondaryLabel,
-              textTransform: "uppercase",
-              letterSpacing: 0.5,
-              marginBottom: 12,
-            }}
-          >
-            Continue Reading ({readingComics.length})
-          </Text>
+            <SymbolView
+              name="book.closed"
+              size={48}
+              tintColor={AC.tertiaryLabel as unknown as string}
+            />
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: "600",
+                color: AC.label,
+                marginTop: 16,
+              }}
+            >
+              No Comics in Progress
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                color: AC.secondaryLabel,
+                textAlign: "center",
+                marginTop: 8,
+                maxWidth: 280,
+              }}
+            >
+              Start reading a comic from your library to see it here
+            </Text>
+          </View>
+        ) : (
           <View style={{ gap: 12 }}>
             {readingComics.map((comic) => (
               <ContinueReadingCard key={comic.id} comic={comic} />
             ))}
           </View>
-        </View>
-      )}
-    </ScrollView>
+        )}
+      </ScrollView>
+
+      <Stack.Screen.Title large>Reading</Stack.Screen.Title>
+
+      <Stack.Toolbar placement="right">
+        <Stack.Toolbar.Button onPress={() => {}}>Edit</Stack.Toolbar.Button>
+      </Stack.Toolbar>
+
+      <Stack.Toolbar placement="bottom">
+        <Stack.Toolbar.Spacer />
+        <Stack.Toolbar.Button
+          icon="arrow.clockwise"
+          onPress={() => {}}
+        />
+      </Stack.Toolbar>
+    </>
   );
 }

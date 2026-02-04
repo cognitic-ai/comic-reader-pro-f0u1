@@ -34,13 +34,7 @@ const AppleStackPreset: NativeStackNavigationOptions =
 export default function ReadingLayout() {
   return (
     <Stack screenOptions={AppleStackPreset}>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "Reading",
-          headerLargeTitle: true,
-        }}
-      />
+      <Stack.Screen name="index" />
     </Stack>
   );
 }

@@ -19,44 +19,46 @@ export default function ComicCard({ comic, showProgress = false }: ComicCardProp
             transform: [{ scale: pressed ? 0.98 : 1 }],
           })}
         >
-          <View
-            style={{
-              borderRadius: 12,
-              borderCurve: "continuous",
-              overflow: "hidden",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            }}
-          >
-            <Image
-              source={{ uri: comic.coverUrl }}
+          <Link.AppleZoom>
+            <View
               style={{
-                width: "100%",
-                aspectRatio: 2 / 3,
+                borderRadius: 12,
+                borderCurve: "continuous",
+                overflow: "hidden",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
               }}
-              contentFit="cover"
-              transition={200}
-            />
-            {showProgress && comic.progress > 0 && (
-              <View
+            >
+              <Image
+                source={{ uri: comic.coverUrl }}
                 style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: 4,
-                  backgroundColor: "rgba(0, 0, 0, 0.3)",
+                  width: "100%",
+                  aspectRatio: 2 / 3,
                 }}
-              >
+                contentFit="cover"
+                transition={200}
+              />
+              {showProgress && comic.progress > 0 && (
                 <View
                   style={{
-                    height: "100%",
-                    width: `${comic.progress}%`,
-                    backgroundColor: AC.systemBlue,
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 4,
+                    backgroundColor: "rgba(0, 0, 0, 0.3)",
                   }}
-                />
-              </View>
-            )}
-          </View>
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: `${comic.progress}%`,
+                      backgroundColor: AC.systemBlue,
+                    }}
+                  />
+                </View>
+              )}
+            </View>
+          </Link.AppleZoom>
           <View style={{ marginTop: 8, gap: 2 }}>
             <Text
               style={{

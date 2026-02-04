@@ -76,24 +76,26 @@ export default function ComicDetailRoute() {
             paddingHorizontal: 16,
           }}
         >
-          <View
-            style={{
-              borderRadius: 12,
-              borderCurve: "continuous",
-              overflow: "hidden",
-              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.25)",
-            }}
-          >
-            <Image
-              source={{ uri: comic.coverUrl }}
+          <Link.AppleZoomTarget>
+            <View
               style={{
-                width: coverWidth,
-                height: coverHeight,
+                borderRadius: 12,
+                borderCurve: "continuous",
+                overflow: "hidden",
+                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.25)",
               }}
-              contentFit="cover"
-              transition={200}
-            />
-          </View>
+            >
+              <Image
+                source={{ uri: comic.coverUrl }}
+                style={{
+                  width: coverWidth,
+                  height: coverHeight,
+                }}
+                contentFit="cover"
+                transition={200}
+              />
+            </View>
+          </Link.AppleZoomTarget>
 
           <Text
             selectable
@@ -265,6 +267,30 @@ export default function ComicDetailRoute() {
           </View>
         </View>
       </ScrollView>
+
+      <Stack.Toolbar placement="right">
+        <Stack.Toolbar.Button icon="heart" onPress={() => {}} />
+        <Stack.Toolbar.Menu icon="ellipsis.circle">
+          <Stack.Toolbar.MenuAction icon="square.and.arrow.up" onPress={() => {}}>
+            Share
+          </Stack.Toolbar.MenuAction>
+          <Stack.Toolbar.MenuAction icon="bookmark" onPress={() => {}}>
+            Add to Reading List
+          </Stack.Toolbar.MenuAction>
+          <Stack.Toolbar.MenuAction icon="info.circle" onPress={() => {}}>
+            View Details
+          </Stack.Toolbar.MenuAction>
+        </Stack.Toolbar.Menu>
+      </Stack.Toolbar>
+
+      <Stack.Toolbar placement="bottom">
+        <Stack.Toolbar.Spacer />
+        <Link href={`/read/${comic.id}`} asChild>
+          <Stack.Toolbar.Button icon="book.fill" separateBackground>
+            {comic.progress > 0 ? "Continue" : "Read"}
+          </Stack.Toolbar.Button>
+        </Link>
+      </Stack.Toolbar>
     </>
   );
 }
