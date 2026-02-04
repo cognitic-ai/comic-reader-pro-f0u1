@@ -1,8 +1,8 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { SymbolView } from "expo-symbols";
 import { Tabs as WebTabs } from "expo-router/tabs";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
-import { Platform, useWindowDimensions } from "react-native";
+import { Platform, useWindowDimensions, View } from "react-native";
 
 export default function Layout() {
   return (
@@ -41,17 +41,37 @@ function WebTabsLayout() {
       }}
     >
       <WebTabs.Screen
-        name="index"
+        name="(library)"
         options={{
-          title: "Home",
-          tabBarIcon: (props) => <MaterialIcons {...props} name="home" />,
+          title: "Library",
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ width: size, height: size, justifyContent: "center", alignItems: "center" }}>
+              <SymbolView name="books.vertical" size={size - 4} tintColor={color} />
+            </View>
+          ),
         }}
       />
       <WebTabs.Screen
-        name="info"
+        name="(reading)"
         options={{
-          title: "Info",
-          tabBarIcon: (props) => <MaterialIcons {...props} name="info" />,
+          title: "Reading",
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ width: size, height: size, justifyContent: "center", alignItems: "center" }}>
+              <SymbolView name="book" size={size - 4} tintColor={color} />
+            </View>
+          ),
+        }}
+      />
+      <WebTabs.Screen
+        name="comic/[id]"
+        options={{
+          href: null,
+        }}
+      />
+      <WebTabs.Screen
+        name="read/[id]"
+        options={{
+          href: null,
         }}
       />
     </WebTabs>
@@ -61,25 +81,21 @@ function WebTabsLayout() {
 function NativeTabsLayout() {
   return (
     <NativeTabs>
-      <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+      <NativeTabs.Trigger name="(library)">
+        <NativeTabs.Trigger.Label>Library</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           {...Platform.select({
-            ios: { sf: { default: "house", selected: "house.fill" } },
-            default: {
-              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="home" />,
-            },
+            ios: { sf: { default: "books.vertical", selected: "books.vertical.fill" } },
+            default: { sf: "books.vertical" },
           })}
         />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="info">
-        <NativeTabs.Trigger.Label>Info</NativeTabs.Trigger.Label>
+      <NativeTabs.Trigger name="(reading)">
+        <NativeTabs.Trigger.Label>Reading</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           {...Platform.select({
-            ios: { sf: "cursorarrow.rays" },
-            default: {
-              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="info" />,
-            },
+            ios: { sf: { default: "book", selected: "book.fill" } },
+            default: { sf: "book" },
           })}
         />
       </NativeTabs.Trigger>
